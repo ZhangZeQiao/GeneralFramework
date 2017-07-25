@@ -26,8 +26,8 @@ public class MoviePresenter extends BasePresenter<MovieActivity, MovieModel> imp
     }
 
     @Override
-    public void getTop250() {
-        mModel.downloadTop250()
+    public void getMovies(int start, int count) {
+        mModel.downloadMovies(start, count)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Observer<Movies>() {
@@ -40,7 +40,7 @@ public class MoviePresenter extends BasePresenter<MovieActivity, MovieModel> imp
 
                     @Override
                     public void onNext(Movies movies) {
-                        mView.showTop250(movies);
+                        mView.showMovies(movies);
                     }
 
                     @Override
@@ -74,6 +74,7 @@ public class MoviePresenter extends BasePresenter<MovieActivity, MovieModel> imp
 
                     @Override
                     public void onError(Throwable e) {
+                        mView.hideLoading();
                         mView.showToast(e.getMessage());
                     }
 
@@ -102,6 +103,7 @@ public class MoviePresenter extends BasePresenter<MovieActivity, MovieModel> imp
 
                     @Override
                     public void onError(Throwable e) {
+                        mView.hideLoading();
                         mView.showToast(e.getMessage());
                     }
 

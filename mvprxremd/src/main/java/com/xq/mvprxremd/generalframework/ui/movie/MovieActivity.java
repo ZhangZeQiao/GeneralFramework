@@ -27,7 +27,6 @@ import java.util.List;
  * @time 2017/7/21  10:25
  * @desc movie页面View层
  */
-
 public class MovieActivity extends BaseActivity<MoviePresenter> implements MovieContract.IView {
 
     // 互相关联
@@ -80,7 +79,7 @@ public class MovieActivity extends BaseActivity<MoviePresenter> implements Movie
             @Override
             public void onRefresh() {
                 mMoviesData.clear(); // 清空，防止重复添加
-                mPresenter.getTop250();
+                mPresenter.getMoreMovies(mMoviesData.size(), 10);
             }
         });
     }
@@ -91,12 +90,12 @@ public class MovieActivity extends BaseActivity<MoviePresenter> implements Movie
     }
 
     @Override
-    protected void initEventAndData() {
-        mPresenter.getTop250(); // 一页显示 10 条数据
+    protected void initData() {
+        mPresenter.getMovies(0, 10); // 一页显示 10 条数据
     }
 
     @Override
-    public void showTop250(final Movies movies) {
+    public void showMovies(final Movies movies) {
         mMoviesData.addAll(movies.subjects);
 
         // 普通 adapter：
@@ -160,8 +159,13 @@ public class MovieActivity extends BaseActivity<MoviePresenter> implements Movie
     public void showMoreMovies(Movies movies) {
         // TODO: 上拉刷新时 mPresenter.getMoreMovies() 中要调用 showMoreMovies，不要复用 showTop250()
         // TODO: 这样 notifyDataSetChanged()时才不会跳到第一项
+        // TODO: 下拉刷新也指向这里，不要指向 showMovies()，这样就不会造成下拉刷新后不能拖拽 item
         mMoviesData.addAll(movies.subjects);
-        mPulldownAdapter.notifyDataSetChanged();
+        if (mMoviesData.size() < 10) {
+            mMovieAdapter.notifyDataSetChanged();
+        } else {
+            mPulldownAdapter.notifyDataSetChanged();
+        }
     }
 
     @Override

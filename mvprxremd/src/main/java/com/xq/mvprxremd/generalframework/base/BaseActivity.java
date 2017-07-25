@@ -28,7 +28,7 @@ public abstract class BaseActivity<P extends BasePresenter> extends AppCompatAct
         mPresenter = initPresenter();
         mPresenter.attachView(this);
 
-        initEventAndData();
+        initData();
     }
 
     protected abstract int setContentView();
@@ -37,7 +37,7 @@ public abstract class BaseActivity<P extends BasePresenter> extends AppCompatAct
 
     protected abstract P initPresenter();
 
-    protected abstract void initEventAndData();
+    protected abstract void initData();
 
     @Override
     public void showLoading() {

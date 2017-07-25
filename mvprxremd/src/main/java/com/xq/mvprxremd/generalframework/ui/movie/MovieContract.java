@@ -18,7 +18,7 @@ public class MovieContract {
      */
     interface IView {
 
-        void showTop250(Movies movies);
+        void showMovies(Movies movies);
 
         void showMoreMovies(Movies movies);
 
@@ -31,7 +31,7 @@ public class MovieContract {
      */
     interface IPresenter {
 
-        void getTop250();
+        void getMovies(int start, int count);
 
         void getMoreMovies(int start, int count);
 
@@ -44,7 +44,7 @@ public class MovieContract {
      */
     interface IModel {
 
-        Observable<Movies> downloadTop250();
+        Observable<Movies> downloadMovies(int start, int count);
 
         Observable<Movies> downloadMoreMovies(int start, int count);
 

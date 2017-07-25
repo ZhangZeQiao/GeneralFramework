@@ -1,6 +1,7 @@
 package com.xq.mvprxremd.generalframework.recyclerview;
 
 import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.helper.ItemTouchHelper;
 
@@ -23,6 +24,7 @@ public class SimpleItemTouchCallback<T> extends ItemTouchHelper.Callback {
 
     private RecyclerView.Adapter mAdapter;
     private List<T> mData;
+    private Drawable mDrawable;
 
     public SimpleItemTouchCallback(RecyclerView.Adapter adapter, List<T> data) {
         mAdapter = adapter;
@@ -46,6 +48,13 @@ public class SimpleItemTouchCallback<T> extends ItemTouchHelper.Callback {
     public boolean onMove(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, RecyclerView.ViewHolder target) {
         int from = viewHolder.getAdapterPosition();
         int to = target.getAdapterPosition();
+        // TODO: 避免拉倒最后越界
+        if (from >= mData.size()) {
+            from = mData.size() - 1;
+        }
+        if (to >= mData.size()) {
+            to = mData.size() - 1;
+        }
         Collections.swap(mData, from, to);
         mAdapter.notifyItemMoved(from, to);
         return true;
@@ -72,9 +81,8 @@ public class SimpleItemTouchCallback<T> extends ItemTouchHelper.Callback {
     public void onSelectedChanged(RecyclerView.ViewHolder viewHolder, int actionState) {
         super.onSelectedChanged(viewHolder, actionState);
         if (actionState != ItemTouchHelper.ACTION_STATE_IDLE) {
-            // TODO: 最好不要设置拖拽时的背景色，因为下面还原时，还得考虑还原 CardView的样式
-            // TODO: 2017/7/25 但是不设置时，拖拽 item放手时有问题 （item会抖动一下）？！
-            // viewHolder.itemView.setBackgroundColor(Color.BLUE); // 设置拖拽时的背景色
+            // TODO: 设置拖拽时的背景色，下面还原时，得考虑还原 CardView的样式
+            mDrawable = viewHolder.itemView.getBackground(); // 获取原先样式
             viewHolder.itemView.setBackgroundColor(Color.GRAY);
         }
     }
@@ -86,7 +94,8 @@ public class SimpleItemTouchCallback<T> extends ItemTouchHelper.Callback {
     @Override
     public void clearView(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder) {
         super.clearView(recyclerView, viewHolder);
-        viewHolder.itemView.setBackgroundColor(Color.WHITE); // 背景色还原
+        // 背景色还原（还原到原先样式）
+        viewHolder.itemView.setBackground(mDrawable);
     }
 
     /**

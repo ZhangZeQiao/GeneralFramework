@@ -2,7 +2,8 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/GeneralFramework.iml" filepath="$PROJECT_DIR$/GeneralFramework.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/GeneralFramework.iml" filepath="$PROJECT_DIR$/.idea/GeneralFramework.iml" />
+      <module fileurl="file://D:\Android\WorkSpace\AndroidStudioProjects\GeneralFramework\GeneralFramework.iml" filepath="D:\Android\WorkSpace\AndroidStudioProjects\GeneralFramework\GeneralFramework.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
       <module fileurl="file://$PROJECT_DIR$/mvprxre/mvprxre.iml" filepath="$PROJECT_DIR$/mvprxre/mvprxre.iml" />
       <module fileurl="file://$PROJECT_DIR$/mvprxremd/mvprxremd.iml" filepath="$PROJECT_DIR$/mvprxremd/mvprxremd.iml" />

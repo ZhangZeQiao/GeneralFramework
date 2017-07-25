@@ -17,9 +17,9 @@ import io.reactivex.Observable;
 public class MovieModel implements IModel, MovieContract.IModel {
 
     @Override
-    public Observable<Movies> downloadTop250() {
+    public Observable<Movies> downloadMovies(int start, int count) {
         ApiService apiService = RetrofitHelper.getInstance().getApiService();
-        return apiService.getMovies250();
+        return apiService.getMoreMovies(start, count);
     }
 
     @Override

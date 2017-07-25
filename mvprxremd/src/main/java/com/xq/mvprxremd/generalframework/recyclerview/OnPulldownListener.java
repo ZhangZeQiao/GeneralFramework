@@ -19,11 +19,9 @@ import android.support.v7.widget.RecyclerView;
 
 public abstract class OnPulldownListener extends RecyclerView.OnScrollListener {
 
-    private int mPreviousTotal = 0;
-    private boolean mLoading = true;
-    private int mFirstVisibleItem, mVisibleItemCount, mTotalItemCount;
     private int mCurrentPage = 1;
     private LinearLayoutManager mLinearLayoutManager;
+    private int mTotalItemCount;
     private int mLastCompletelyVisibleItemPosition; // 最后一个完全可见的 item
 
     public OnPulldownListener(LinearLayoutManager linearLayoutManager) {
@@ -34,22 +32,12 @@ public abstract class OnPulldownListener extends RecyclerView.OnScrollListener {
     public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
         super.onScrolled(recyclerView, dx, dy);
 
-        mVisibleItemCount = recyclerView.getChildCount();
         mTotalItemCount = mLinearLayoutManager.getItemCount();
-        mFirstVisibleItem = mLinearLayoutManager.findFirstVisibleItemPosition();
         mLastCompletelyVisibleItemPosition = mLinearLayoutManager.findLastCompletelyVisibleItemPosition();
 
-        if (mLoading) {
-            if (mTotalItemCount > mPreviousTotal) {
-                mLoading = false;
-                mPreviousTotal = mTotalItemCount;
-            }
-        }
-
-        if (!mLoading && (mTotalItemCount - mVisibleItemCount) <= mFirstVisibleItem) {
+        if (mTotalItemCount == mLastCompletelyVisibleItemPosition + 1) { // position与size相差 1
             mCurrentPage++;
             onLoadMore(mCurrentPage);
-            mLoading = true;
         }
     }
 
