@@ -1,1 +1,1 @@
-include ':app', ':mvprxre'
+include ':app', ':mvprxre', ':mvprxremd'

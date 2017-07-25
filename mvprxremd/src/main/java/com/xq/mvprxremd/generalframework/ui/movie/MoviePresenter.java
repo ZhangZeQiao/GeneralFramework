@@ -1,8 +1,8 @@
-package com.xq.mvprxre.generalframework.ui.movie;
+package com.xq.mvprxremd.generalframework.ui.movie;
 
-import com.xq.mvprxre.generalframework.base.BasePresenter;
-import com.xq.mvprxre.generalframework.bean.Movie;
-import com.xq.mvprxre.generalframework.bean.Movies;
+import com.xq.mvprxremd.generalframework.base.BasePresenter;
+import com.xq.mvprxremd.generalframework.bean.Movie;
+import com.xq.mvprxremd.generalframework.bean.Movies;
 
 import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -19,6 +19,7 @@ public class MoviePresenter extends BasePresenter<MovieActivity, MovieModel> imp
 
     // MoviePresenter<MovieActivity>已经在MovieActivity中onCreate时绑定了
     // MoviePresenter<MovieModel>已经在MoviePresenter新建时调用initModel()方法绑定了
+
     @Override
     protected MovieModel initModel() {
         return new MovieModel();
@@ -44,6 +45,7 @@ public class MoviePresenter extends BasePresenter<MovieActivity, MovieModel> imp
 
                     @Override
                     public void onError(Throwable e) {
+                        mView.hideLoading();
                         mView.showToast(e.getMessage());
                     }
 
@@ -55,8 +57,36 @@ public class MoviePresenter extends BasePresenter<MovieActivity, MovieModel> imp
     }
 
     @Override
-    public void getMovieInfo(int id) {
-        mModel.downloadMovieInfo(id)
+    public void getMoreMovies(int start, int count) {
+        mModel.downloadMoreMovies(start, count)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<Movies>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+                        mView.showLoading();
+                    }
+
+                    @Override
+                    public void onNext(Movies movies) {
+                        mView.showMoreMovies(movies);
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        mView.showToast(e.getMessage());
+                    }
+
+                    @Override
+                    public void onComplete() {
+                        mView.hideLoading();
+                    }
+                });
+    }
+
+    @Override
+    public void getMovieById(int id) {
+        mModel.downloadMovieById(id)
                 .subscribeOn(Schedulers.io()) // 另开一个线程来下载（指定一个观察者在哪个调度器上观察这个Observable）
                 .observeOn(AndroidSchedulers.mainThread()) // 下载完回到主线程（指定Observable自身在哪个调度器上执行）
                 .subscribe(new Observer<Movie>() {
@@ -67,7 +97,7 @@ public class MoviePresenter extends BasePresenter<MovieActivity, MovieModel> imp
 
                     @Override
                     public void onNext(Movie movie) {
-                        mView.showMovieInfo(movie);
+                        mView.showMovieById(movie);
                     }
 
                     @Override
