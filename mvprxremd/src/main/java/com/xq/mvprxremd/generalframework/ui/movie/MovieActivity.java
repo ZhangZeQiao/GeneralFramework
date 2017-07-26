@@ -6,7 +6,6 @@ import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.helper.ItemTouchHelper;
-import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Toast;
@@ -73,10 +72,9 @@ public class MovieActivity extends BaseActivity<MoviePresenter> implements Movie
         //  设置进度条的颜色变化，最多可以设置4种颜色
         mSwipeRefreshLayout.setColorSchemeColors(Color.BLUE, Color.RED, Color.GREEN);
         // 调整进度条距离屏幕顶部的距离
-        // TODO: 下拉刷新时，用第一种setProgressViewOffset()，小圆圈不转动，颜色不显示
-        // mSwipeRefreshLayout.setProgressViewOffset(false, 50, 50);
-        mSwipeRefreshLayout.setProgressViewOffset(false,
-                0, (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 24, getResources().getDisplayMetrics()));
+        // TODO: setProgressViewOffset(boolean scale, int start, int end)中start不能等于end，会造成下拉刷新时小圆圈不转动，颜色不显示
+        mSwipeRefreshLayout.setProgressViewOffset(false, 0, 50);
+        // 适配写法：mSwipeRefreshLayout.setProgressViewOffset(false, 0, (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 24, getResources().getDisplayMetrics()));
         // 设置下拉监听
         mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
