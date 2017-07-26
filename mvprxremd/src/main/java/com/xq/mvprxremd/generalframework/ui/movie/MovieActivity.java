@@ -6,6 +6,7 @@ import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.helper.ItemTouchHelper;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Toast;
@@ -70,10 +71,12 @@ public class MovieActivity extends BaseActivity<MoviePresenter> implements Movie
 
         mSwipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.srl);
         //  设置进度条的颜色变化，最多可以设置4种颜色
-        // TODO: 2017/7/24 下拉刷新时，小圆圈不转动？还是颜色不显示？
         mSwipeRefreshLayout.setColorSchemeColors(Color.BLUE, Color.RED, Color.GREEN);
         // 调整进度条距离屏幕顶部的距离
-        mSwipeRefreshLayout.setProgressViewOffset(true, 50, 50);
+        // TODO: 下拉刷新时，用第一种setProgressViewOffset()，小圆圈不转动，颜色不显示
+        // mSwipeRefreshLayout.setProgressViewOffset(false, 50, 50);
+        mSwipeRefreshLayout.setProgressViewOffset(false,
+                0, (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 24, getResources().getDisplayMetrics()));
         // 设置下拉监听
         mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
@@ -177,12 +180,14 @@ public class MovieActivity extends BaseActivity<MoviePresenter> implements Movie
     public void showLoading() {
         // super.showLoading();
         // TODO: 第一次进入，设置swipeRefreshLayout的刷新状态显示，要异步实现
-        mSwipeRefreshLayout.post(new Runnable() {
-            @Override
-            public void run() {
-                mSwipeRefreshLayout.setRefreshing(true);
-            }
-        });
+        if (!mSwipeRefreshLayout.isRefreshing()) {
+            mSwipeRefreshLayout.post(new Runnable() {
+                @Override
+                public void run() {
+                    mSwipeRefreshLayout.setRefreshing(true);
+                }
+            });
+        }
     }
 
     @Override
