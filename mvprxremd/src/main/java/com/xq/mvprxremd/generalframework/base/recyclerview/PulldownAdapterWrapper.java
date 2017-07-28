@@ -1,4 +1,4 @@
-package com.xq.mvprxremd.generalframework.recyclerview;
+package com.xq.mvprxremd.generalframework.base.recyclerview;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.View;

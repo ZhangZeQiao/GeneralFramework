@@ -1,4 +1,4 @@
-package com.xq.mvprxremd.generalframework.recyclerview;
+package com.xq.mvprxremd.generalframework.adapter;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
@@ -21,7 +21,7 @@ import java.util.List;
  * @time 2017/7/24  10:49
  * @desc movie列表adapter
  * <p>
- * 基本流程的adapter，为了不重复操作，用 QuickAdapter
+ * 基本流程的adapter，为了不重复操作，用 QuickRlvAdapter
  */
 
 public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHolder> {
@@ -57,7 +57,7 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
     @Override
     public MovieViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         // TODO: 最佳inflate写法
-        View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_movie_list, parent, false);
+        View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_movie, parent, false);
         return new MovieViewHolder(itemView);
     }
 

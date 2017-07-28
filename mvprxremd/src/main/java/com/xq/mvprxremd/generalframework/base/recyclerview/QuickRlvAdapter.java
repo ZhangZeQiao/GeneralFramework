@@ -1,4 +1,4 @@
-package com.xq.mvprxremd.generalframework.recyclerview;
+package com.xq.mvprxremd.generalframework.base.recyclerview;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
@@ -25,12 +25,12 @@ import java.util.List;
  * <p>
  */
 
-public abstract class QuickAdapter<T> extends RecyclerView.Adapter<QuickAdapter.VH> {
+public abstract class QuickRlvAdapter<T> extends RecyclerView.Adapter<QuickRlvAdapter.VH> {
 
     private static Context mContext;
     private List<T> mDatas;
 
-    public QuickAdapter(Context context, List<T> datas) {
+    public QuickRlvAdapter(Context context, List<T> datas) {
         mContext = context;
         mDatas = datas;
     }
@@ -61,7 +61,7 @@ public abstract class QuickAdapter<T> extends RecyclerView.Adapter<QuickAdapter.
 
     protected static class VH extends RecyclerView.ViewHolder {
 
-        private SparseArray<View> mViews; // 存储item view的控件
+        private SparseArray<View> mViews; // 存储 item view的控件
         private View mConvertView;
 
         public VH(View itemView) {

@@ -1,4 +1,4 @@
-package com.xq.mvp.generalframework.application;
+package com.xq.mvprxremd.generalframework.base.application;
 
 import android.app.Application;
 import android.content.Context;

@@ -1,4 +1,4 @@
-package com.xq.mvp.generalframework.base;
+package com.xq.mvp.generalframework.base.mvp;
 
 /**
  * @author 小侨

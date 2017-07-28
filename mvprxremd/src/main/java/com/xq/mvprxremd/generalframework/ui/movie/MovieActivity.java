@@ -12,12 +12,12 @@ import android.widget.Toast;
 
 import com.xq.mvprxremd.R;
 import com.xq.mvprxremd.generalframework.base.BaseActivity;
+import com.xq.mvprxremd.generalframework.base.recyclerview.OnPulldownListener;
+import com.xq.mvprxremd.generalframework.base.recyclerview.PulldownAdapterWrapper;
+import com.xq.mvprxremd.generalframework.base.recyclerview.QuickRlvAdapter;
+import com.xq.mvprxremd.generalframework.base.recyclerview.SimpleItemTouchCallback;
 import com.xq.mvprxremd.generalframework.bean.Movie;
 import com.xq.mvprxremd.generalframework.bean.Movies;
-import com.xq.mvprxremd.generalframework.recyclerview.OnPulldownListener;
-import com.xq.mvprxremd.generalframework.recyclerview.PulldownAdapterWrapper;
-import com.xq.mvprxremd.generalframework.recyclerview.QuickAdapter;
-import com.xq.mvprxremd.generalframework.recyclerview.SimpleItemTouchCallback;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -36,7 +36,7 @@ public class MovieActivity extends BaseActivity<MoviePresenter> implements Movie
     private SwipeRefreshLayout mSwipeRefreshLayout;
     private RecyclerView mMovieRecyclerView;
     // private MovieAdapter mMovieAdapter;
-    private QuickAdapter mMovieAdapter;
+    private QuickRlvAdapter mMovieAdapter;
     private PulldownAdapterWrapper mPulldownAdapter;
 
     private List<Movies.SubjectsBean> mMoviesData = new ArrayList<>();
@@ -104,11 +104,11 @@ public class MovieActivity extends BaseActivity<MoviePresenter> implements Movie
         // mMovieRecyclerView.setAdapter(mMovieAdapter);
 
         // TODO: 快捷 adapter：
-        mMovieAdapter = new QuickAdapter<Movies.SubjectsBean>(mContext, mMoviesData) {
+        mMovieAdapter = new QuickRlvAdapter<Movies.SubjectsBean>(mContext, mMoviesData) {
 
             @Override
             protected int getLayoutId(int viewType) {
-                return R.layout.item_movie_list;
+                return R.layout.item_movie;
             }
 
             @Override

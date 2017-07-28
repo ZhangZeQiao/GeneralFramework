@@ -6,6 +6,8 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.Toast;
 
+import com.xq.mvp.generalframework.base.mvp.IView;
+
 /**
  * @author 小侨
  * @time 2017/7/21  10:10

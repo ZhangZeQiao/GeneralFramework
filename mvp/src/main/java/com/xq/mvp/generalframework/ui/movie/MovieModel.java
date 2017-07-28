@@ -1,6 +1,6 @@
 package com.xq.mvp.generalframework.ui.movie;
 
-import com.xq.mvp.generalframework.base.IModel;
+import com.xq.mvp.generalframework.base.mvp.IModel;
 
 /**
  * @author 小侨

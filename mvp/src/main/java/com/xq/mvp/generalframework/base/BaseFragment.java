@@ -7,6 +7,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.xq.mvp.generalframework.base.mvp.IView;
+
 /**
  * @author 小侨
  * @time 2017/7/26  17:56
@@ -49,9 +51,13 @@ public abstract class BaseFragment<P extends BasePresenter> extends Fragment imp
 
         mPresenter = initPresenter();
         mPresenter.attachView(this);
+
+        initView();
     }
 
     protected abstract P initPresenter();
+
+    protected abstract void initView();
 
     @Override
     public void showLoading() {

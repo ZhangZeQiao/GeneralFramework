@@ -1,5 +1,9 @@
 package com.xq.mvp.generalframework.base;
 
+import com.xq.mvp.generalframework.base.mvp.IModel;
+import com.xq.mvp.generalframework.base.mvp.IPresenter;
+import com.xq.mvp.generalframework.base.mvp.IView;
+
 /**
  * @author 小侨
  * @time 2017/7/21  10:11

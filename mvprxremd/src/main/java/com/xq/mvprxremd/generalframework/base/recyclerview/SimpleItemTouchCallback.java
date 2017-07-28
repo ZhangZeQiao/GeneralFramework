@@ -1,4 +1,4 @@
-package com.xq.mvprxremd.generalframework.recyclerview;
+package com.xq.mvprxremd.generalframework.base.recyclerview;
 
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
