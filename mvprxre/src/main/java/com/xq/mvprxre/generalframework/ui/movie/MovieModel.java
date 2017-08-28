@@ -1,6 +1,6 @@
 package com.xq.mvprxre.generalframework.ui.movie;
 
-import com.xq.mvprxre.generalframework.base.IModel;
+import com.xq.mvprxre.generalframework.base.mvp.IModel;
 import com.xq.mvprxre.generalframework.bean.Movie;
 import com.xq.mvprxre.generalframework.bean.Movies;
 import com.xq.mvprxre.generalframework.http.ApiService;

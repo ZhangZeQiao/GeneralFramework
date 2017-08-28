@@ -27,14 +27,14 @@ public class MoviePresenter extends BasePresenter<MovieActivity, MovieModel> imp
     @Override
     public void getTop250() {
         mModel.downloadTop250()
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(Schedulers.io()) // 指定发射事件的线程
+                .observeOn(AndroidSchedulers.mainThread()) // 指定消费事件的线程
                 .subscribe(new Observer<Movies>() {
                     @Override
                     public void onSubscribe(Disposable d) {
+                        mCompositeDisposable.add(d); // TODO: 2017/8/28 思考看能不能抽取？？？除非重写 Observer？
                         mView.showLoading();
-
-                        // TODO: 这里不用写做 mView != null 判断，是因为在 BaseActivity已经做了 onDestroy() 时解绑了
+                        // TODO: 这里不用做 mView != null 判断，是因为在 BaseActivity已经做了 onDestroy() 时解绑了
                     }
 
                     @Override
@@ -44,6 +44,7 @@ public class MoviePresenter extends BasePresenter<MovieActivity, MovieModel> imp
 
                     @Override
                     public void onError(Throwable e) {
+                        mView.hideLoading();
                         mView.showToast(e.getMessage());
                     }
 
@@ -62,6 +63,7 @@ public class MoviePresenter extends BasePresenter<MovieActivity, MovieModel> imp
                 .subscribe(new Observer<Movie>() {
                     @Override
                     public void onSubscribe(Disposable d) {
+                        mCompositeDisposable.add(d);
                         mView.showLoading();
                     }
 
@@ -72,6 +74,7 @@ public class MoviePresenter extends BasePresenter<MovieActivity, MovieModel> imp
 
                     @Override
                     public void onError(Throwable e) {
+                        mView.hideLoading();
                         mView.showToast(e.getMessage());
                     }
 

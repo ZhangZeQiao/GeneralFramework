@@ -4,6 +4,8 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 
+import com.xq.mvprxre.generalframework.base.mvp.IView;
+
 /**
  * @author 小侨
  * @time 2017/7/21  10:10

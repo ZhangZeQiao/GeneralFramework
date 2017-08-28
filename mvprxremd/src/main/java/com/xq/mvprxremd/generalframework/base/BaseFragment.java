@@ -1,4 +1,4 @@
-package com.xq.mvp.generalframework.base;
+package com.xq.mvprxremd.generalframework.base;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -9,7 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.xq.mvp.generalframework.base.mvp.IView;
+import com.xq.mvprxremd.generalframework.base.mvp.IView;
 
 /**
  * @author 小侨
