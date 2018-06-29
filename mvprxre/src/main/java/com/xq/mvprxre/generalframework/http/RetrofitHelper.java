@@ -13,11 +13,15 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class RetrofitHelper {
 
-    private static RetrofitHelper mRetrofitHelper;
+    private static final RetrofitHelper mRetrofitHelper = new RetrofitHelper();
     private Retrofit mRetrofit;
 
     private RetrofitHelper() {
         setRetrofit();
+    }
+
+    public static RetrofitHelper getInstance(){
+        return mRetrofitHelper;
     }
 
     private void setRetrofit() {
@@ -26,17 +30,6 @@ public class RetrofitHelper {
                 .addConverterFactory(GsonConverterFactory.create()) // 添加 gson关联
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create()) // 添加 Rxjava关联
                 .build();
-    }
-
-    public static RetrofitHelper getInstance() {
-        if (mRetrofitHelper == null) {
-            synchronized (RetrofitHelper.class) { // 加锁
-                if (mRetrofitHelper == null) {
-                    mRetrofitHelper = new RetrofitHelper();
-                }
-            }
-        }
-        return mRetrofitHelper;
     }
 
     public ApiService getApiService() {
